@@ -27,7 +27,20 @@ private:
     TrieNode* root;
 
     void findAllWords(TrieNode* node, string currentWord, vector<string>& results) {
-        // TODO: Implement this function
+        if (!node) return;
+
+        
+        if (node->isEndOfWord) {
+            results.push_back(currentWord);
+        }
+
+        
+        for (int i = 0; i < 26; i++) {
+            if (node->children[i] != nullptr) {
+                char nextChar = 'a' + i;
+                findAllWords(node->children[i], currentWord + nextChar, results);
+            }
+        }
     }
 
 public:
