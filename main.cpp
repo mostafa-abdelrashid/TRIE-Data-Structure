@@ -46,6 +46,7 @@ private:
 public:
     Trie() {
         // TODO: Implement this function
+        root = new TrieNode();
     }
 
     void insert(string word) {
@@ -78,7 +79,19 @@ public:
 
     vector<string> autocomplete(string prefix) {
         vector<string> suggestions;
-        // TODO: Implement this function
+        if(prefix == ""){
+            findAllWords(root, prefix, suggestions);
+            return suggestions;
+        }
+        TrieNode* curr = root;
+        for (char c: prefix){
+            int index = c-'a';
+            if(curr->children[index]){
+                curr = curr->children[index];
+            }
+            else return {};
+        }
+        findAllWords(curr, prefix, suggestions);
         return suggestions;
     }
 };
