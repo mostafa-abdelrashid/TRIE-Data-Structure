@@ -44,14 +44,29 @@ private:
     }
 
 public:
-    Trie() {
-        // TODO: Implement this function
-        root = new TrieNode();
+  Trie() {
+    root = new TrieNode();
+}
+
+   void insert(string word) {
+    TrieNode* current = root;
+
+    for (char c : word) {
+        int index = c - 'a';
+
+        
+        if (index < 0 || index >= 26) 
+            continue;
+
+        if (current->children[index] == nullptr) {
+            current->children[index] = new TrieNode();
+        }
+
+        current = current->children[index];
     }
 
-    void insert(string word) {
-        // TODO: Implement this function
-    }
+    current->isEndOfWord = true;
+}
 
     bool search(string word) {
         TrieNode* current = root;
